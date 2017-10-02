@@ -37,8 +37,10 @@ public class ColorPicker extends Dialog implements SeekBar.OnSeekBarChangeListen
     private EditText hexCode;
     private int alpha, red, green, blue;
     private ColorPickerCallback callback;
+    private TextView textView;
 
     private boolean withAlpha;
+    private boolean showHexEditor;
 
     /**
      * Creator of the class. It will initialize the class with black color as default
@@ -60,6 +62,7 @@ public class ColorPicker extends Dialog implements SeekBar.OnSeekBarChangeListen
         this.blue = 0;
 
         this.withAlpha = false;
+        this.showHexEditor = false;
     }
 
     /**
@@ -136,6 +139,7 @@ public class ColorPicker extends Dialog implements SeekBar.OnSeekBarChangeListen
         colorView = findViewById(R.id.colorView);
 
         hexCode = (EditText) findViewById(R.id.hexCode);
+        textView = (TextView) findViewById(R.id.textView);
 
         alphaSeekBar = (SeekBar) findViewById(R.id.alphaSeekBar);
         redSeekBar = (SeekBar) findViewById(R.id.redSeekBar);
@@ -184,6 +188,8 @@ public class ColorPicker extends Dialog implements SeekBar.OnSeekBarChangeListen
         redSeekBar.setProgress(red);
         greenSeekBar.setProgress(green);
         blueSeekBar.setProgress(blue);
+        hexCode.setVisibility(showHexEditor ? View.VISIBLE : View.GONE);
+        textView.setVisibility(showHexEditor ? View.VISIBLE : View.GONE);
 
         if (!withAlpha) {
             alphaSeekBar.setVisibility(View.GONE);
@@ -205,6 +211,10 @@ public class ColorPicker extends Dialog implements SeekBar.OnSeekBarChangeListen
         red = Color.red(color);
         green = Color.green(color);
         blue = Color.blue(color);
+    }
+
+    public void setShowHexEditor(boolean showHexEditor) {
+        this.showHexEditor = showHexEditor;
     }
 
     /**
